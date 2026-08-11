@@ -1,0 +1,8 @@
+﻿{
+  "seed": 20260801,
+  "corpora": {
+    "D1": { "type": "real",      "note": "not redistributable" },
+    "D2": { "type": "generated", "target_gb": 15, "files": 23785 },
+    "D3": { "type": "generated", "target_gb": 40, "files": 835 }
+  }
+}

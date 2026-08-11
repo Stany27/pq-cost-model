@@ -1,0 +1,8 @@
+﻿__pycache__/
+*.pyc
+.venv/
+corpora/
+results/campaign/
+*.tar.gz
+CLAUDE.md
+.claude/
