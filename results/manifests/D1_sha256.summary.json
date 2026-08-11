@@ -1,25 +1,25 @@
 {
   "corpus": "D1",
-  "files": 715,
-  "bytes": 3983467816,
-  "gb": 3.71,
-  "mean_file_mb": 5.313,
+  "files": 949,
+  "bytes": 5256455089,
+  "gb": 4.895,
+  "mean_file_mb": 5.282,
   "by_extension": {
+    ".png": {
+      "files": 318,
+      "gb": 0.048
+    },
     ".json": {
       "files": 137,
       "gb": 0.001
     },
     ".log": {
-      "files": 110,
+      "files": 111,
       "gb": 0.007
     },
     ".txt": {
       "files": 110,
       "gb": 0.003
-    },
-    ".png": {
-      "files": 102,
-      "gb": 0.022
     },
     ".jpg": {
       "files": 97,
@@ -42,24 +42,24 @@
       "gb": 0.002
     },
     ".pdf": {
-      "files": 17,
+      "files": 19,
       "gb": 0.007
     },
     ".csv": {
-      "files": 15,
+      "files": 18,
       "gb": 0.0
+    },
+    ".zip": {
+      "files": 11,
+      "gb": 2.782
     },
     "(none)": {
       "files": 7,
       "gb": 0.033
     },
     ".mp4": {
-      "files": 4,
-      "gb": 1.669
-    },
-    ".zip": {
-      "files": 4,
-      "gb": 1.66
+      "files": 6,
+      "gb": 1.706
     },
     ".ibd": {
       "files": 4,
@@ -77,6 +77,10 @@
       "files": 1,
       "gb": 0.0
     },
+    ".eddx": {
+      "files": 1,
+      "gb": 0.0
+    },
     ".info": {
       "files": 1,
       "gb": 0.0
@@ -86,6 +90,14 @@
       "gb": 0.0
     },
     ".doc": {
+      "files": 1,
+      "gb": 0.0
+    },
+    ".xlsx": {
+      "files": 1,
+      "gb": 0.0
+    },
+    ".py": {
       "files": 1,
       "gb": 0.0
     }
