@@ -1,29 +1,29 @@
 {
   "corpus": "D1",
-  "files": 949,
-  "bytes": 5256455089,
-  "gb": 4.895,
-  "mean_file_mb": 5.282,
+  "files": 887,
+  "bytes": 4153012142,
+  "gb": 3.868,
+  "mean_file_mb": 4.465,
   "by_extension": {
     ".png": {
       "files": 318,
       "gb": 0.048
     },
     ".json": {
-      "files": 137,
+      "files": 133,
       "gb": 0.001
-    },
-    ".log": {
-      "files": 111,
-      "gb": 0.007
     },
     ".txt": {
       "files": 110,
       "gb": 0.003
     },
+    ".log": {
+      "files": 106,
+      "gb": 0.007
+    },
     ".jpg": {
-      "files": 97,
-      "gb": 0.301
+      "files": 53,
+      "gb": 0.173
     },
     ".frm": {
       "files": 31,
@@ -37,17 +37,17 @@
       "files": 24,
       "gb": 0.0
     },
-    ".docx": {
-      "files": 21,
-      "gb": 0.002
-    },
-    ".pdf": {
-      "files": 19,
-      "gb": 0.007
-    },
     ".csv": {
       "files": 18,
       "gb": 0.0
+    },
+    ".pdf": {
+      "files": 17,
+      "gb": 0.004
+    },
+    ".docx": {
+      "files": 16,
+      "gb": 0.002
     },
     ".zip": {
       "files": 11,
@@ -58,8 +58,8 @@
       "gb": 0.033
     },
     ".mp4": {
-      "files": 6,
-      "gb": 1.706
+      "files": 4,
+      "gb": 0.811
     },
     ".ibd": {
       "files": 4,
