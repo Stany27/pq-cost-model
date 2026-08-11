@@ -1,105 +1,61 @@
 {
   "corpus": "D1",
-  "files": 887,
-  "bytes": 4153012142,
-  "gb": 3.868,
-  "mean_file_mb": 4.465,
+  "files": 806,
+  "bytes": 2142569696,
+  "gb": 1.995,
+  "mean_file_mb": 2.535,
   "by_extension": {
     ".png": {
-      "files": 318,
-      "gb": 0.048
+      "files": 311,
+      "gb": 0.046
     },
     ".json": {
-      "files": 133,
+      "files": 140,
       "gb": 0.001
     },
     ".txt": {
-      "files": 110,
+      "files": 122,
       "gb": 0.003
     },
     ".log": {
-      "files": 106,
-      "gb": 0.007
+      "files": 117,
+      "gb": 0.055
     },
     ".jpg": {
-      "files": 53,
+      "files": 52,
       "gb": 0.173
     },
-    ".frm": {
-      "files": 31,
-      "gb": 0.0
-    },
-    ".mad": {
-      "files": 24,
-      "gb": 0.002
-    },
-    ".mai": {
-      "files": 24,
-      "gb": 0.0
-    },
     ".csv": {
-      "files": 18,
-      "gb": 0.0
+      "files": 19,
+      "gb": 0.003
     },
-    ".pdf": {
-      "files": 17,
-      "gb": 0.004
-    },
-    ".docx": {
+    ".py": {
       "files": 16,
-      "gb": 0.002
+      "gb": 0.0
     },
     ".zip": {
-      "files": 11,
-      "gb": 2.782
+      "files": 10,
+      "gb": 1.275
     },
-    "(none)": {
-      "files": 7,
-      "gb": 0.033
+    ".sql": {
+      "files": 6,
+      "gb": 0.001
     },
-    ".mp4": {
+    ".md": {
       "files": 4,
-      "gb": 0.811
-    },
-    ".ibd": {
-      "files": 4,
-      "gb": 0.0
-    },
-    ".pub": {
-      "files": 2,
-      "gb": 0.002
-    },
-    ".csm": {
-      "files": 2,
-      "gb": 0.0
-    },
-    ".00000001": {
-      "files": 1,
-      "gb": 0.0
-    },
-    ".eddx": {
-      "files": 1,
-      "gb": 0.0
-    },
-    ".info": {
-      "files": 1,
-      "gb": 0.0
-    },
-    ".ini": {
-      "files": 1,
-      "gb": 0.0
-    },
-    ".doc": {
-      "files": 1,
       "gb": 0.0
     },
     ".xlsx": {
-      "files": 1,
-      "gb": 0.0
+      "files": 4,
+      "gb": 0.001
     },
-    ".py": {
-      "files": 1,
-      "gb": 0.0
+    ".xml": {
+      "files": 3,
+      "gb": 0.005
+    },
+    ".mp4": {
+      "files": 2,
+      "gb": 0.433
     }
   }
 }
