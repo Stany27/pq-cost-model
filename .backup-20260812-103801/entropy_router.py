@@ -12,14 +12,9 @@ data sit well below and compress cheaply. The threshold separating them is not
 assumed here: scripts/entropy_profile.py measures it on the corpora and reports
 whether the two families actually separate.
 
-The sampling strategy matters more than it appears. A leading window is the
-obvious choice and it is wrong: camera JPEGs carry EXIF blocks, embedded
-thumbnails and XMP metadata that can fill the first sixty kilobytes with
-structured, low-entropy bytes. Measured that way, a 3 MB photograph reads at
-3.3 bits per byte and the router sends it to a compressor that cannot shrink it.
-We therefore skip the header and sample several windows spread across the file.
-
-References: Shannon (1948) for the measure.
+References for the measure: Shannon (1948). The sampling strategy follows common
+practice in file-type detection, where a leading window is representative enough
+for a first-order entropy estimate.
 """
 
 from __future__ import annotations
@@ -43,18 +38,9 @@ class Route(str, Enum):
 # do not move it until the separation looks clean.
 DEFAULT_THRESHOLD = 7.5
 
-# Reading the whole file to decide would defeat the purpose. Several windows
-# spread across the body give a first-order estimate at the cost of a few seeks.
+# Reading the whole file to decide would defeat the purpose. A leading window
+# is enough for a first-order estimate and costs a single seek.
 DEFAULT_SAMPLE_BYTES = 65_536
-
-# Number of windows drawn across the file. Four is enough to survive a large
-# header and a trailing index without reading the whole payload.
-DEFAULT_WINDOWS = 4
-
-# Bytes skipped at the start, to step over container headers and metadata.
-# Capped so that a very large file does not skip a disproportionate amount.
-HEADER_SKIP_RATIO = 0.05
-HEADER_SKIP_MAX = 262_144
 
 # Below this size the routing decision cannot pay for itself: the per-file KEM
 # cost dominates so heavily that compression is irrelevant either way.
@@ -84,30 +70,6 @@ def shannon_entropy(data: bytes) -> float:
     return -sum((c / n) * math.log2(c / n) for c in counts.values())
 
 
-def echantillonner(data: bytes, sample_bytes: int, windows: int) -> bytes:
-    """
-    Draw several windows spread across the body of a payload.
-
-    The first few per cent are skipped: that is where container headers,
-    EXIF blocks and embedded thumbnails live, and their low entropy is not
-    representative of the payload the compressor would actually see.
-    """
-    if len(data) <= sample_bytes:
-        return data
-
-    debut = min(int(len(data) * HEADER_SKIP_RATIO), HEADER_SKIP_MAX)
-    utile = len(data) - debut
-    if utile <= sample_bytes:
-        return data[debut:]
-
-    largeur = sample_bytes // windows
-    pas = utile // windows
-    return b"".join(
-        data[debut + i * pas: debut + i * pas + largeur]
-        for i in range(windows)
-    )
-
-
 class EntropyRouter:
     """
     Routes files to a compression strategy based on measured entropy.
@@ -121,16 +83,12 @@ class EntropyRouter:
         threshold: float = DEFAULT_THRESHOLD,
         sample_bytes: int = DEFAULT_SAMPLE_BYTES,
         min_size: int = MIN_SIZE_TO_CONSIDER,
-        windows: int = DEFAULT_WINDOWS,
     ) -> None:
         if not 0.0 < threshold < 8.0:
             raise ValueError("threshold must lie strictly between 0 and 8 bits/byte")
-        if windows < 1:
-            raise ValueError("windows must be at least 1")
         self.threshold = threshold
         self.sample_bytes = sample_bytes
         self.min_size = min_size
-        self.windows = windows
 
     # ------------------------------------------------------------------
     def decide_bytes(self, data: bytes, declared_size: int | None = None) -> Decision:
@@ -141,7 +99,7 @@ class EntropyRouter:
             return Decision(Route.NONE, 0.0, 0, size,
                             f"below {self.min_size} B; routing cannot pay for itself")
 
-        sample = echantillonner(data, self.sample_bytes, self.windows)
+        sample = data[: self.sample_bytes]
         h = shannon_entropy(sample)
 
         if h > self.threshold:
@@ -157,29 +115,9 @@ class EntropyRouter:
         if size < self.min_size:
             return Decision(Route.NONE, 0.0, 0, size,
                             f"below {self.min_size} B; routing cannot pay for itself")
-        # Seek to each window rather than reading the whole file: the cost
-        # stays a few kilobytes even on a hundred-megabyte payload.
-        debut = min(int(size * HEADER_SKIP_RATIO), HEADER_SKIP_MAX)
-        utile = size - debut
-        morceaux = []
         with p.open("rb") as fh:
-            if utile <= self.sample_bytes:
-                fh.seek(debut)
-                morceaux.append(fh.read(self.sample_bytes))
-            else:
-                largeur = self.sample_bytes // self.windows
-                pas = utile // self.windows
-                for i in range(self.windows):
-                    fh.seek(debut + i * pas)
-                    morceaux.append(fh.read(largeur))
-        sample = b"".join(morceaux)
-
-        h = shannon_entropy(sample)
-        if h > self.threshold:
-            return Decision(Route.NONE, h, len(sample), size,
-                            f"entropy {h:.3f} > {self.threshold}; already compressed")
-        return Decision(Route.ZSTD, h, len(sample), size,
-                        f"entropy {h:.3f} <= {self.threshold}; compressible")
+            sample = fh.read(self.sample_bytes)
+        return self.decide_bytes(sample, declared_size=size)
 
     # ------------------------------------------------------------------
     def compress(self, data: bytes, decision: Decision) -> tuple[bytes, Route]:

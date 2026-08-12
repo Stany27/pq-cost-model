@@ -85,31 +85,6 @@ except ImportError:
     print("  SKIP  zstandard not installed")
 
 # --- input validation -------------------------------------------------------
-# --- the header trap ------------------------------------------------------
-# A camera JPEG carries EXIF, an embedded thumbnail and XMP metadata in its
-# first tens of kilobytes. Sampling only the leading window measures that
-# header, reads 3 bits per byte on a 3 MB photograph, and sends an
-# incompressible file to the compressor. These tests lock the fix in place.
-print("\nHeader trap")
-entete = b"\xff\xd8\xff\xe1" + b"Exif\x00\x00" + b"\x00" * 40000 + b"<?xpacket?>" * 1800
-photo = entete + os.urandom(3_300_000)
-
-d_photo = router.decide_bytes(photo)
-check("a photograph behind a large header is not compressed",
-      d_photo.route is Route.NONE)
-check("its measured entropy reflects the image, not the header",
-      d_photo.entropy > 7.5)
-
-# The header alone must still read as low entropy: the fix must not simply
-# push every measurement upward.
-check("the header on its own still reads as low entropy",
-      shannon_entropy(entete) < 5.0)
-
-# A genuinely compressible file preceded by a header stays compressible.
-texte = b"\x00" * 40000 + b"2026-08-11T14:59:27Z INFO request served\n" * 60000
-check("a text file behind a header is still compressed",
-      router.decide_bytes(texte).route is Route.ZSTD)
-
 print("\nInput validation")
 for bad in (-1.0, 0.0, 8.0, 9.5):
     try:

@@ -1,11 +1,6 @@
 """
 Entropy profile of the corpora.
 
-Sampling follows the router: several windows spread across the body, skipping
-the header. Measuring only the leading window under-reports the entropy of any
-format that carries metadata up front — a camera JPEG reads at 3.3 bits per
-byte that way, against 8.0 for its actual image data.
-
 The pipeline routes each file on a Shannon-entropy threshold. That threshold
 must be shown to separate the two content families rather than asserted, since
 the paper's title claims the pipeline is entropy-aware.
@@ -28,7 +23,6 @@ import pandas as pd
 
 DEFAULT_THRESHOLD = 7.5   # bits per byte
 SAMPLE_BYTES = 65536
-WINDOWS = 4
 
 
 def shannon_entropy(data: bytes) -> float:
@@ -40,30 +34,14 @@ def shannon_entropy(data: bytes) -> float:
     return -sum((c / n) * math.log2(c / n) for c in counts.values())
 
 
-def echantillon(path: Path, taille: int, sample_bytes: int) -> bytes:
-    """Several windows across the body, skipping the header."""
-    debut = min(int(taille * 0.05), 262_144)
-    utile = taille - debut
-    with path.open("rb") as fh:
-        if utile <= sample_bytes:
-            fh.seek(debut if debut < taille else 0)
-            return fh.read(sample_bytes)
-        largeur = sample_bytes // WINDOWS
-        pas = utile // WINDOWS
-        morceaux = []
-        for i in range(WINDOWS):
-            fh.seek(debut + i * pas)
-            morceaux.append(fh.read(largeur))
-        return b"".join(morceaux)
-
-
 def profile(root: Path, sample_bytes: int):
     rows = []
     for path in sorted(root.rglob("*")):
         if not path.is_file():
             continue
         try:
-            sample = echantillon(path, path.stat().st_size, sample_bytes)
+            with path.open("rb") as fh:
+                sample = fh.read(sample_bytes)
         except OSError:
             continue
         rows.append({
