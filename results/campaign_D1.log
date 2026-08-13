@@ -1,0 +1,26 @@
+Output space available: 385.7 GB
+
+Warm-up: 2 run(s) per corpus, discarded
+  D1 warm-up 1/2
+  D1 warm-up 2/2
+
+Campaign: 10 runs in randomised order (seed 20260801)
+
+  [  1/10] D1 replicate 3
+  [  2/10] D1 replicate 9
+  [  3/10] D1 replicate 6
+  [  4/10] D1 replicate 7
+  [  5/10] D1 replicate 1
+  [  6/10] D1 replicate 5
+  [  7/10] D1 replicate 0
+  [  8/10] D1 replicate 2
+  [  9/10] D1 replicate 4
+  [ 10/10] D1 replicate 8
+
+==============================================================
+Corpus     n   mean(s)     CV%   spread  verdict
+--------------------------------------------------------------
+D1        10    127.04     1.1     1.0x  accepted
+==============================================================
+
+All configurations meet the acceptance criterion.

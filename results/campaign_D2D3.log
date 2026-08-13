@@ -1,0 +1,39 @@
+Output space available: 385.7 GB
+
+Warm-up: 2 run(s) per corpus, discarded
+  D2 warm-up 1/2
+  D2 warm-up 2/2
+  D3 warm-up 1/2
+  D3 warm-up 2/2
+
+Campaign: 20 runs in randomised order (seed 20260801)
+
+  [  1/20] D2 replicate 9
+  [  2/20] D2 replicate 6
+  [  3/20] D2 replicate 7
+  [  4/20] D3 replicate 8
+  [  5/20] D3 replicate 4
+  [  6/20] D3 replicate 0
+  [  7/20] D3 replicate 2
+  [  8/20] D2 replicate 2
+  [  9/20] D2 replicate 1
+  [ 10/20] D2 replicate 0
+  [ 11/20] D2 replicate 5
+  [ 12/20] D3 replicate 3
+  [ 13/20] D3 replicate 6
+  [ 14/20] D3 replicate 5
+  [ 15/20] D3 replicate 1
+  [ 16/20] D2 replicate 3
+  [ 17/20] D2 replicate 4
+  [ 18/20] D3 replicate 9
+  [ 19/20] D2 replicate 8
+  [ 20/20] D3 replicate 7
+
+==============================================================
+Corpus     n   mean(s)     CV%   spread  verdict
+--------------------------------------------------------------
+D2        10    502.41     0.5     1.0x  accepted
+D3        10     68.62     1.0     1.0x  accepted
+==============================================================
+
+All configurations meet the acceptance criterion.

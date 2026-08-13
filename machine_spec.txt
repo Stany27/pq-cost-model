@@ -1,0 +1,14 @@
+=== CPU ===
+Model name:                              Intel Core Processor (Skylake, IBRS, no TSX)
+BIOS Model name:                         pc-q35-8.2  CPU @ 2.0GHz
+Thread(s) per core:                      2
+Core(s) per socket:                      4
+Hypervisor vendor:                       Microsoft
+=== RAM ===
+               total        used        free      shared  buff/cache   available
+Mem:            31Gi       1.6Gi       322Mi       945Mi        30Gi        29Gi
+Swap:          8.0Gi       7.5Mi       8.0Gi
+=== DISQUE ===
+NAME  SIZE ROTA MODEL
+sr0  1024M    1 QEMU DVD-ROM
+vda   512G    1 

@@ -1,0 +1,14 @@
+6925 files from /mnt/ramdisk/D1, threshold 7.5 bits/byte
+
+  A  zstd + AES + KEM                    12.7 MB/s  CV  1.0%  ratio 1.240
+  B  raw + AES + KEM                     13.2 MB/s  CV  0.6%  ratio 1.000
+  C  raw + AES                          739.7 MB/s  CV  3.8%  ratio 1.000
+  D  gzip + AES + KEM                    10.3 MB/s  CV  0.8%  ratio 1.243
+  E  entropy router + AES + KEM          12.2 MB/s  CV  0.7%  ratio 1.228
+       routing: {'none': 3455, 'zstd': 3470}
+
+-> /root/pq-cost-model/results/ablation.json
+
+Configuration E against B: -7.6% throughput, volume ratio 1.228 against 1.000
+The router costs more than it saves on this corpus. Report that
+as the finding rather than tuning the threshold until it looks good.

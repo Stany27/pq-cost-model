@@ -1,0 +1,24 @@
+[
+  {
+    "config": "D",
+    "label": "gzip + AES + KEM",
+    "files": 835,
+    "bytes_in": 43358965822,
+    "bytes_out": 40088817585,
+    "seconds": 924.632,
+    "throughput_mb_s": 44.7,
+    "volume_ratio": 1.082,
+    "routes": {
+      "gzip": 835
+    },
+    "post_quantum": true,
+    "replicates": 1,
+    "throughput_mean_mb_s": 44.7,
+    "throughput_stdev_mb_s": 0.0,
+    "cv_pct": 0.0,
+    "accepted": true,
+    "all_throughputs": [
+      44.7
+    ]
+  }
+]
