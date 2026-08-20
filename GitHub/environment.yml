@@ -1,0 +1,20 @@
+name: pq-cost-model
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13.7
+  - numpy=2.2.1
+  - pandas=2.2.3
+  - scipy=1.15.1
+  - statsmodels=0.14.4
+  - matplotlib=3.10.0
+  - scikit-image=0.25.0
+  - pip
+  - pip:
+      - cryptography==44.0.0
+      - kyber-py==1.0.1
+      - zstandard==0.23.0
+      # Optional, for native ML-KEM measurements (Section 7.4 / Section 9 of the
+      # manuscript). Requires liboqs to be built separately; without it, only the
+      # pure-Python kyber-py shim is measured.
+      # - liboqs-python==0.12.0
